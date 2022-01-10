@@ -25,7 +25,7 @@ public class CategoryService {
 
     // 카테고리 전부 가져오기
     public List<Category> showAll(Integer user_id) {
-        return categoryRepository.findByuserNum(user_id);
+        return categoryRepository.findByUserNum(user_id);
     }
 
     // 카테고리 생성

@@ -23,7 +23,7 @@ public class CategoryRepositoryTest {
             // 입력 데이터 준비
             int user_num = 1;
             // 실제 수행
-            List<Category> categories = categoryRepository.findByuserNum(user_num);
+            List<Category> categories = categoryRepository.findByUserNum(user_num);
             // 예상하기
             Category a = new Category(1, 1, "aaaa");
             Category b = new Category(2, 1, "bbbb");

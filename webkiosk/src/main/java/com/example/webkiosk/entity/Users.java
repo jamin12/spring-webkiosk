@@ -21,17 +21,16 @@ import lombok.ToString;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer user_num;
+    private Integer userNum;
 
     @Column
-    private String user_id;
+    private String userId;
     @Column
-    private String user_pw;
+    private String userPw;
 
-    public Users(String user_id, String user_pw) {
-        this.user_num = null;
-        this.user_id = user_id;
-        this.user_pw = user_pw;
+    public Users(String userId, String userPw) {
+        this.userId = userId;
+        this.userPw = userPw;
     }
 
 }
