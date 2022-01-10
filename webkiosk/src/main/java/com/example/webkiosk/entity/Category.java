@@ -19,22 +19,22 @@ import lombok.ToString;
 public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer category_id;
+	private Integer categoryId;
 
 	@Column
-	private Integer user_num;
+	private Integer userNum;
 
 	@Column
 	private String category_name;
 
-	public Category(Integer user_num, String category_name) {
-		this.user_num = user_num;
+	public Category(Integer userNum, String category_name) {
+		this.userNum = userNum;
 		this.category_name = category_name;
 	}
 
 	public void patch(Category category) {
-		if (category.user_num != null) {
-			this.user_num = category.user_num;
+		if (category.userNum != null) {
+			this.userNum = category.userNum;
 		}
 		if (category.category_name != null) {
 			this.category_name = category.category_name;

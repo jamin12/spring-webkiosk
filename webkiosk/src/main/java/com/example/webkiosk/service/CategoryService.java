@@ -1,5 +1,9 @@
 package com.example.webkiosk.service;
 
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import com.example.webkiosk.entity.Category;
 import com.example.webkiosk.repository.CategoryRepository;
 
@@ -14,18 +18,30 @@ public class CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
 
+    // id에 대응하는 카테고리 리턴
+    public Category show(Integer id) {
+        return categoryRepository.findById(id).orElse(null);
+    }
+
+    // 카테고리 전부 가져오기
+    public List<Category> showAll(Integer user_id) {
+        return categoryRepository.findByuserNum(user_id);
+    }
+
     // 카테고리 생성
-    public Category categoryCreate(Category newCategory) {
+    @Transactional
+    public Category Create(Category newCategory) {
         Category success = categoryRepository.save(newCategory);
         log.info("생성이 완료 되었습니다." + success.toString());
         return success;
     }
 
     // 카테고리 수정
-    public Category categoryUpdtae(Integer id, Category upCategory) {
+    @Transactional
+    public Category Updtae(Integer id, Category upCategory) {
         Category target = categoryRepository.findById(id).orElse(null);
 
-        if (target == null || id != upCategory.getCategory_id()) {
+        if (target == null || id != upCategory.getCategoryId()) {
             log.info("잘못된 요청 입니다.", id, upCategory.toString());
             return null;
         }
@@ -36,7 +52,8 @@ public class CategoryService {
     }
 
     // 카테고리 삭제
-    public Category categoryDelete(Integer id) {
+    @Transactional
+    public Category Delete(Integer id) {
         Category target = categoryRepository.findById(id).orElse(null);
         if (target == null) {
             log.info("지울 수 있는 대상이 없습니다.");
