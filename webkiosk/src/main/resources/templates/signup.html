@@ -89,36 +89,31 @@
                 <form action="#" th:action="@{/signup}" th:object="${user}" method="post">
                     <div class="form-group">
                         <label for="id" class="fw-bold">아이디</label>
-                        <input type="text" name="id" id="id" class="form-control" th:classappend="${#fields.hasErrors('userid')} ? 'is-invalid'" th:field="*{userid}">
+                        <input type="text" name="id" id="id" class="form-control" th:classappend="${#fields.hasErrors('userId')} ? 'is-invalid'" th:field="*{userId}">
                         <span th:text="${valid_userid}"></span>
-                        <div class="invalid-feedback" th:if="${#fields.hasErrors('userid')}" th:errors="*{userid}">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">
                             아이디 형식이 맞지 않습니다.
                         </div>
                     </div>
                     <div class="form-group mt-3">
                         <label for="pw" class="fw-bold">비밀번호</label>
-                        <input type="password" name="pw" id="pw" class="form-control" th:field="*{userpw}">
-                        <span th:text="${valid_userpw}"></span>
+                        <input type="password" name="pw" id="pw" class="form-control" th:field="*{userPassword}">
                     </div>
                     <div class="form-group mt-3">
                         <label for="name" class="fw-bold">이름</label>
-                        <input type="text" name="name" id="name" class="form-control" th:field="*{username}">
-                        <span th:text="${valid_username}"></span>
+                        <input type="text" name="name" id="name" class="form-control" th:field="*{userName}">
                     </div>
                     <div class="form-group mt-3">
                         <label for="company" class="fw-bold">회사</label>
-                        <input type="text" name="company" id="company" class="form-control" th:field="*{usercompany}">
-                        <span th:text="${valid_company}"></span>
+                        <input type="text" name="company" id="company" class="form-control" th:field="*{userCompany}">
                     </div>
                     <div class="form-group mt-3">
                         <label for="phone" class="fw-bold">핸드폰번호</label>
-                        <input type="tel" name="phone" id="phone" class="form-control" th:field="*{mobile}">
-                        <span th:text="${valid_mobile}"></span>
+                        <input type="tel" name="phone" id="phone" class="form-control" th:field="*{userPhoneNumber}">
                     </div>
                     <div class="form-group mt-3">
                         <label for="email" class="fw-bold">이메일</label>
-                        <input type="email" name="email" id="email" class="form-control" th:field="*{email}">
-                        <span th:text="${valid_email}"></span>
+                        <input type="email" name="email" id="email" class="form-control" th:field="*{userEmail}">
                     </div>
                     <button class="btn btn-signup mt-5">회원가입</button>
                 </form>

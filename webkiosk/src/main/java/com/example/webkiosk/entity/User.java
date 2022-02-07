@@ -1,12 +1,13 @@
 package com.example.webkiosk.entity;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
@@ -17,31 +18,25 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_num", nullable = false, length = 11)
+	private Long userNum;
 
-	private Integer usernum;
+	@Column(length = 20)
+	private String userId;
 
-	@NotBlank(message = "아이디 입력은 필수 입니다.")
-	@Column(name = "user_id", nullable = false, length = 50)
-	private String userid;
+	@Column(length = 64)
+	private String userPassword;
 
-	@NotBlank(message = "비밀번호 입력은 필수 입니다.")
-	@Column(name = "user_pw", nullable = false, length = 255)
-	private String userpw;
+	@Column(length = 10)
+	private String userName;
 
-	@NotBlank(message = "이름 입력은 필수 입니다.")
-	@Column(name = "user_name", nullable = false, length = 50)
-	private String username;
+	@Column(length = 20)
+	private String userCompany;
 
-	@NotBlank(message = "회사 입력은 필수 입니다.")
-	@Column(name = "user_company", nullable = false, length = 50)
-	private String usercompany;
+	@Column(length = 11, name = "user_phone_number")
+	private String userPhoneNumber;
 
-	@NotBlank(message = "핸드폰번호 입력은 필수 입니다.")
-	@Column(name = "mobile", nullable = false, length = 50)
-	private String mobile;
+	private String userBirthday;
 
-	@NotBlank(message = "이메일 입력은 필수 입니다.")
-	@Column(name = "email", nullable = false, length = 255)
-	private String email;
+	@Column(length = 50)
+	private String userEmail;
 }

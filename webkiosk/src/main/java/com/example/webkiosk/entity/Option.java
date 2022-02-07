@@ -1,4 +1,3 @@
-//강경민
 package com.example.webkiosk.entity;
 
 import javax.persistence.Column;
@@ -12,28 +11,24 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@Entity
 @Data
-@Table(name = "product")
-public class Product {
+@Entity
+@Table(name = "option")
+public class Option {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
+    private Long optionId;
 
     @ManyToOne
-    @JoinColumn(name = "category_categoryId") // "articleid" 컬럼에 Article의 대표값을 저장
-    private Category categoryId;
+    @JoinColumn(name = "user_userNum")
+    private User userNum;
 
-    @Column(length = 30)
-    private String productName;
+    @Column(length = 20)
+    private String optionName;
 
-    @Column
-    private Integer productPrice;
-
-    @Column(length = 255)
-    private String productInfo;
+    private Integer optionPrice;
 
     @Column(length = 50)
-    private String productImage;
+    private String optionImage;
 }

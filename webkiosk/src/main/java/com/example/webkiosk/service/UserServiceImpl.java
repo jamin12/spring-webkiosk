@@ -1,3 +1,4 @@
+
 package com.example.webkiosk.service;
 
 import javax.transaction.Transactional;
@@ -17,12 +18,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Boolean login(String id, String pw) {
-		User user = userRepository.findByUserid(id);
-		if (userRepository.findByUserid(id) == null) {
+		User user = userRepository.findByUserId(id);
+		if (userRepository.findByUserId(id) == null) {
 			return false;
 		} else {
 			ExtractHash extractHash = new ExtractHash();
-			if (user.getUserpw().equals(extractHash.ExtractSHA256(pw))) {
+			if (user.getUserPassword().equals(extractHash.ExtractSHA256(pw))) {
 				return true;
 			} else {
 				return false;
@@ -34,12 +35,13 @@ public class UserServiceImpl implements UserService {
 	public void registerUser(User vo) {
 		User user = new User();
 		ExtractHash extractHash = new ExtractHash();
-		user.setUserid(vo.getUserid());
-		user.setUserpw(extractHash.ExtractSHA256(vo.getUserpw()));
-		user.setUsername(vo.getUsername());
-		user.setUsercompany(vo.getUsercompany());
-		user.setMobile(vo.getMobile());
-		user.setEmail(vo.getEmail());
+		user.setUserId(vo.getUserId());
+		user.setUserPassword(extractHash.ExtractSHA256(vo.getUserPassword()));
+		user.setUserName(vo.getUserName());
+		user.setUserCompany(vo.getUserCompany());
+		user.setUserPhoneNumber(vo.getUserPhoneNumber());
+		user.setUserEmail(vo.getUserEmail());
+		user.setUserBirthday("1900-01-01");
 		userRepository.save(user);
 	}
 }
