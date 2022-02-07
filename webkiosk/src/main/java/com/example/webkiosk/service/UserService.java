@@ -1,7 +1,5 @@
 package com.example.webkiosk.service;
 
-import java.util.Optional;
-
 import com.example.webkiosk.entity.User;
 
 public interface UserService {

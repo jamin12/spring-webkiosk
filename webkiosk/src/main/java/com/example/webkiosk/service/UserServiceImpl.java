@@ -1,15 +1,13 @@
 package com.example.webkiosk.service;
 
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.webkiosk.entity.User;
-import com.example.webkiosk.hash.ExtractHash;
 import com.example.webkiosk.repository.UserRepository;
+import com.example.webkiosk.security.ExtractHash;
 
 @Service
 @Transactional
