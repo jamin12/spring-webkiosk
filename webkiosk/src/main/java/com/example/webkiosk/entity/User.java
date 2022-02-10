@@ -1,15 +1,11 @@
 package com.example.webkiosk.entity;
 
-import java.sql.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -39,4 +35,7 @@ public class User {
 
 	@Column(length = 50)
 	private String userEmail;
+
+	@OneToMany(mappedBy = "userNum")
+	private List<Category> categories = new ArrayList<>();
 }

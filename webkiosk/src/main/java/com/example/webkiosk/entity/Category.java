@@ -1,15 +1,12 @@
 //강경민
 package com.example.webkiosk.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,11 +16,14 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long categoryId;
 
-	@ManyToOne
-	@JoinColumn(name = "user_userNum")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userNum")
 	private User userNum;
 
 	@Column(length = 30)
 	private String categoryName;
+
+	@OneToMany(mappedBy = "categoryId")
+	private List<Product> products = new ArrayList<>();
 
 }

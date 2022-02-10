@@ -3,6 +3,7 @@ package com.example.webkiosk.service;
 
 import javax.transaction.Transactional;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +11,11 @@ import com.example.webkiosk.entity.User;
 import com.example.webkiosk.repository.UserRepository;
 import com.example.webkiosk.security.ExtractHash;
 
+@RequiredArgsConstructor
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
-	@Autowired
-	private UserRepository userRepository;
+
+	private final UserRepository userRepository;
 
 	@Override
 	public Boolean login(String id, String pw) {
@@ -41,7 +42,24 @@ public class UserServiceImpl implements UserService {
 		user.setUserCompany(vo.getUserCompany());
 		user.setUserPhoneNumber(vo.getUserPhoneNumber());
 		user.setUserEmail(vo.getUserEmail());
-		user.setUserBirthday("1900-01-01");
+		user.setUserBirthday(vo.getUserBirthday());
 		userRepository.save(user);
+	}
+
+	@Override
+	public User findByUserId(String userId){
+		return userRepository.findByUserId(userId);
+	}
+
+	@Override
+	public void setLoginUserInfo(User user) {
+		User loginUser = userRepository.getUserByUserId(user.getUserId());
+
+		user.setUserNum(loginUser.getUserNum());
+		user.setUserName(loginUser.getUserName());
+		user.setUserCompany(loginUser.getUserCompany());
+		user.setUserBirthday(loginUser.getUserBirthday());
+		user.setUserPhoneNumber(loginUser.getUserPhoneNumber());
+		user.setUserEmail(loginUser.getUserEmail());
 	}
 }
