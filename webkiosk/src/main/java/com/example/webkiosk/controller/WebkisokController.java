@@ -1,21 +1,21 @@
 package com.example.webkiosk.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.webkiosk.entity.User;
 import com.example.webkiosk.repository.UserRepository;
 import com.example.webkiosk.service.UserService;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor // @Autowired 없어도 변수 앞에 final 붙이면 자동 등록
@@ -32,13 +32,24 @@ public class WebkisokController {
 	}
 
 	@PostMapping("/login")
-	public String loginSubmit(User user, RedirectAttributes rttr) {
+	public String loginSubmit(User user, HttpServletRequest request) {
+
 		if (userService.login(user.getUserId(), user.getUserPassword())) {
-			rttr.addFlashAttribute("userId", user.getUserId());
-			return "redirect:/kiosk";
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user);
+			return "redirect:/test";
 		} else {
 			return "redirect:/fail";
 		}
+	}
+
+	@GetMapping("/test")
+	public ModelAndView test(User user, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User session_user = (User) session.getAttribute("user");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("user", session_user);
+		return mav;
 	}
 
 	@GetMapping("/signup")
