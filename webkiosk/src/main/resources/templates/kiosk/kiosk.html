@@ -89,23 +89,29 @@
     <!--category-->
     <ul class="nav nav-pills nav-fill mt-3 fw-bold">
         <li class="nav-item">
-            <a type="button" class="btn btn-primary btn-lg"><</a>
+            <a type="button" th:href="@{/kiosk(categoryId=${currentCategory} ,category_page=${categories.pageable.pageNumber - 1} ,product_page=${products.pageable.pageNumber})}" class="btn btn-primary btn-lg"><</a>
         </li>
         <li class="nav-item" th:each="clist : ${categories}">
+            <a href="#" th:href="@{/kiosk(categoryId=${clist.categoryId} ,category_page=0 ,product_page=0)}">
+                <button type="button" class="btn fw-bold text-primary" th:classappend="${clist.categoryId == currentCategory} ? 'disabled'" th:text="${clist.categoryName}">err</button>
+            </a>
+
+            <!--
             <form method="get" action="#" th:action="@{/kiosk}" commandName="category">
                 <input type="hidden" th:value="${clist.categoryId}" name="categoryId" />
-                <button type="submit" class="btn fw-bold text-primary" th:text="${clist.categoryName}">err</button>
+                <button type="submit" class="btn fw-bold text-primary" th:classappend="${clist.categoryId == currentCategory} ? 'disabled'" th:text="${clist.categoryName}">err</button>
             </form>
+            -->
         </li>
         <li class="nav-item">
-            <a type="button" class="btn btn-primary btn-lg">></a>
+            <a type="button" th:href="@{/kiosk(categoryId=${currentCategory} ,category_page=${categories.pageable.pageNumber + 1} ,product_page=${products.pageable.pageNumber})}" class="btn btn-primary btn-lg">></a>
         </li>
     </ul>
 
     <!--menu-->
     <div class="row h-auto w-auto my-5">
         <div class="col-1 align-self-center">
-            <a href="#">
+            <a href="#" th:href="@{/kiosk(categoryId=${currentCategory} ,category_page=${categories.pageable.pageNumber} ,product_page=${products.pageable.pageNumber - 1})}">
                 <img src="static/image/previous.png" class="img-fluid" alt="...">
             </a>
         </div>
@@ -126,7 +132,7 @@
             </div>
         </div>
         <div class="col-1 align-self-center">
-            <a href="#">
+            <a href="#" th:href="@{/kiosk(categoryId=${currentCategory} ,category_page=${categories.pageable.pageNumber} ,product_page=${products.pageable.pageNumber + 1})}">
                 <img src="static/image/next.png" class="img-fluid" alt="...">
             </a>
         </div>
