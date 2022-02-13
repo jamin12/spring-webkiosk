@@ -35,6 +35,9 @@ public class User {
 	@Column(length = 11, name = "user_phone_number")
 	private String userPhoneNumber;
 
+	@Column(length = 11, nullable = true)
+	private String userDiallingCode;
+
 	private String userBirthday;
 
 	@Column(length = 50)

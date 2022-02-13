@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
 		user.setUserPhoneNumber(vo.getUserPhoneNumber());
 		user.setUserEmail(vo.getUserEmail());
 		user.setUserBirthday("1900-01-01");
+		user.setUserDiallingCode("01011111111");
 		userRepository.save(user);
 	}
 }
