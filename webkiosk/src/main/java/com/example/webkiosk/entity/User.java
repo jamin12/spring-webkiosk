@@ -38,8 +38,6 @@ public class User {
 	@Column(length = 11, nullable = true)
 	private String userDiallingCode;
 
-	private String userBirthday;
-
 	@Column(length = 50)
 	private String userEmail;
 }
