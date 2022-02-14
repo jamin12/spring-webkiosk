@@ -36,6 +36,6 @@ public class User {
 	@Column(length = 50)
 	private String userEmail;
 
-	@Column(length=30)
-	private String user_role;
+	@OneToMany(mappedBy = "userNum")
+	private List<Category> categories = new ArrayList<>();
 }

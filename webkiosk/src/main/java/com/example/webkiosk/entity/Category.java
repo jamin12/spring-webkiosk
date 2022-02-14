@@ -16,9 +16,14 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long categoryId;
 
-	private Long userNum;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userNum")
+	private User userNum;
 
 	@Column(length = 30)
 	private String categoryName;
+
+	@OneToMany(mappedBy = "categoryId")
+	private List<Product> products = new ArrayList<>();
 
 }

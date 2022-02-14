@@ -21,6 +21,4 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     @Query(value = "SELECT * FROM category WHERE user_num = :userNum", nativeQuery = true)
     List<Category> getCategoryNamesByUserNum(@Param("userNum") Long userNum);
-
-    List<Category> findByUserNum(Long userNum);
 }
