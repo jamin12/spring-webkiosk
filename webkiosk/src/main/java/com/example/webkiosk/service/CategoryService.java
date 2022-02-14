@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
-public class CategoryService {
+public interface CategoryService {
 
     private final CategoryRepository categoryRepository;
 
