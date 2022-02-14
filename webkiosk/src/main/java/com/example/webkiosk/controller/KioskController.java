@@ -58,7 +58,7 @@ public class KioskController {
             return "redirect:/login";
         }
     }
-
+    
     /*@GetMapping("/kiosk")
     public String kiosk(Model model, HttpServletRequest request,
                        @Qualifier("category") @PageableDefault(size = 5) Pageable categoryPage,

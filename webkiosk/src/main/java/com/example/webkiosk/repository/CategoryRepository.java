@@ -1,6 +1,8 @@
 package com.example.webkiosk.repository;
 
 import com.example.webkiosk.entity.Category;
+import com.example.webkiosk.entity.User;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,4 +23,8 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     @Query(value = "SELECT * FROM category WHERE user_num = :userNum", nativeQuery = true)
     List<Category> getCategoryNamesByUserNum(@Param("userNum") Long userNum);
+    List<Category> findByCategoryId(Long categoryId);
+    
+    public List<Category> findByUserNum(Long userNum);
+    
 }
