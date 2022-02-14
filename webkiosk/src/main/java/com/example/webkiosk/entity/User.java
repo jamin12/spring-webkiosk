@@ -40,4 +40,7 @@ public class User {
 
 	@Column(length = 50)
 	private String userEmail;
+
+	@Column(length = 30)
+	private String userRole;
 }
