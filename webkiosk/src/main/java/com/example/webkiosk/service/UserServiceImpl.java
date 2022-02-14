@@ -42,5 +42,17 @@ public class UserServiceImpl implements UserService {
 		user.setUserEmail(vo.getUserEmail());
 		user.setUserDiallingCode("01011111111");
 		userRepository.save(user);
-	}>>>>>>>89 b8b6cffa1f762735dc4904481adb4f33c29fe0
+	}
+
+	@Override
+	public User findByUserId(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLoginUserInfo(User user) {
+		// TODO Auto-generated method stub
+
+	}
 }

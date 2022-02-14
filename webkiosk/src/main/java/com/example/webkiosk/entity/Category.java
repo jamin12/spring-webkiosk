@@ -16,9 +16,7 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long categoryId;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userNum")
-	private User userNum;
+	private Long userNum;
 
 	@Column(length = 30)
 	private String categoryName;
