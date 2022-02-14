@@ -93,8 +93,7 @@ public class KioskController {
     }*/
 
     @PostMapping("/kiosk")
-    public String kioskSubmit(@ModelAttribute("category") Category category, RedirectAttributes rttr) {
-        rttr.addAttribute("categoryId",category.getCategoryId());
+    public String kioskSubmit() {
         return "redirect:/kiosk";
     }
 }

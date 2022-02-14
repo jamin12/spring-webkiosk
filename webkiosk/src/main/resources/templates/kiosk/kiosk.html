@@ -96,7 +96,7 @@
                class="btn btn-primary btn-lg" th:classappend="${0 == categories.pageable.pageNumber} ? 'disabled'"><</a>
         </li>
         <li class="nav-item" th:each="clist : ${categories}">
-            <a href="#" th:href="@{/kiosk(categoryId=${clist.categoryId} ,category_page=0 ,product_page=0)}">
+            <a href="#" class="fw-bold" th:href="@{/kiosk(categoryId=${clist.categoryId} ,category_page=0 ,product_page=0)}" th:classappend="${clist.categoryId == currentCategory} ? 'disabled'">
                 <button type="button" class="btn fw-bold text-primary" th:classappend="${clist.categoryId == currentCategory} ? 'disabled'" th:text="${clist.categoryName}">err</button>
             </a>
         </li>
