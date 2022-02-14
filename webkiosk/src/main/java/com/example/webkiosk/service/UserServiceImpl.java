@@ -1,4 +1,3 @@
-
 package com.example.webkiosk.service;
 
 import javax.transaction.Transactional;
@@ -43,5 +42,5 @@ public class UserServiceImpl implements UserService {
 		user.setUserEmail(vo.getUserEmail());
 		user.setUserDiallingCode("01011111111");
 		userRepository.save(user);
-	}
+	}>>>>>>>89 b8b6cffa1f762735dc4904481adb4f33c29fe0
 }
