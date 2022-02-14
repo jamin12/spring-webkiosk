@@ -37,5 +37,5 @@ public class User {
 	private String userEmail;
 
 	@Column(length=30)
-	private String user_role;
+	private String userRole;
 }
