@@ -4,6 +4,8 @@ import com.example.webkiosk.entity.Category;
 import com.example.webkiosk.entity.Product;
 import com.example.webkiosk.entity.User;
 import com.example.webkiosk.service.CategoryService;
+import com.example.webkiosk.service.ProductService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -22,13 +24,14 @@ import java.util.Optional;
 public class SettingController {
 
     private final CategoryService categoryService;
+    private final ProductService productService;
 
     @GetMapping("/regCategory")
     public String regCategory(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         User loginUser = (User) session.getAttribute("loginUser");
 
-        if(loginUser != null) {
+        if (loginUser != null) {
             List<Category> categories = categoryService.getCategoryNames(loginUser.getUserNum());
 
             model.addAttribute("categories", categories);
@@ -44,7 +47,11 @@ public class SettingController {
     }
 
     @GetMapping("/regProduct")
-    public String regProduct() {
+    public String regProduct(Model model, HttpServletRequest request) {
+        User usernum = (User) request.getSession().getAttribute("loginUser");
+        // List<Category> categoryList =
+        // productService.getAllCategoryName(usernum.getUserNum());
+        model.addAttribute("categories");
         return "setting/regProduct";
     }
 
