@@ -21,7 +21,4 @@ public class Category {
 	@Column(length = 30)
 	private String categoryName;
 
-	@OneToMany(mappedBy = "categoryId")
-	private List<Product> products = new ArrayList<>();
-
 }

@@ -1,15 +1,11 @@
 package com.example.webkiosk.entity;
 
-import java.sql.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -35,12 +31,11 @@ public class User {
 	@Column(length = 11, name = "user_phone_number")
 	private String userPhoneNumber;
 
-	@Column(length = 11, nullable = true)
-	private String userDiallingCode;
+	private String userBirthday;
 
 	@Column(length = 50)
 	private String userEmail;
 
-	@Column(length = 30)
-	private String userRole;
+	@Column(length=30)
+	private String user_role;
 }

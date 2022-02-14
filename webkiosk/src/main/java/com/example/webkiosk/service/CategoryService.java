@@ -1,15 +1,21 @@
+//강경민
 package com.example.webkiosk.service;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import com.example.webkiosk.entity.Category;
+import com.example.webkiosk.entity.User;
 import com.example.webkiosk.repository.CategoryRepository;
-
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
@@ -22,7 +28,7 @@ public class CategoryService {
      */
     public Page<Category> getCategories(Long userNum, Pageable pageable) {
         Page<Category> categoryList = categoryRepository.getCategoriesByUserNum(userNum, pageable);
-        if (categoryList == null) {
+        if(categoryList == null) {
             throw new IllegalStateException("잘못된 호출입니다.");
         }
         return categoryList;
@@ -33,7 +39,7 @@ public class CategoryService {
      */
     public Long getFirstCategoryId(Long userNum) {
         Long firstCategory;
-        if (categoryRepository.getCategoryIdList(userNum).isEmpty()) {
+        if(categoryRepository.getCategoryIdList(userNum).isEmpty()) {
             firstCategory = 0L;
         } else {
             firstCategory = categoryRepository.getCategoryIdList(userNum).get(0);
@@ -46,7 +52,7 @@ public class CategoryService {
      */
     public List<Category> getCategoryNames(Long userNum) {
         List<Category> categoryList = categoryRepository.getCategoryNamesByUserNum(userNum);
-        if (categoryList == null) {
+        if(categoryList == null) {
             throw new IllegalStateException("잘못된 호출입니다.");
         }
         return categoryList;
