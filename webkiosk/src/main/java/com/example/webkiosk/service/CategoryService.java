@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import com.example.webkiosk.entity.Category;
+import com.example.webkiosk.entity.User;
 import com.example.webkiosk.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
-public class CategoryService {
+public interface CategoryService {
 
     private final CategoryRepository categoryRepository;
 
     /**
      * 카테고리 목록 가져오기(페이지)
      */
-    public Page<Category> getCategories (Long userNum, Pageable pageable) {
+    public Page<Category> getCategories(Long userNum, Pageable pageable) {
         Page<Category> categoryList = categoryRepository.getCategoriesByUserNum(userNum, pageable);
         if(categoryList == null) {
             throw new IllegalStateException("잘못된 호출입니다.");
@@ -36,7 +37,7 @@ public class CategoryService {
     /**
      * 첫번째 카테고리 아이디 가져오기
      */
-    public Long getFirstCategoryId (Long userNum) {
+    public Long getFirstCategoryId(Long userNum) {
         Long firstCategory;
         if(categoryRepository.getCategoryIdList(userNum).isEmpty()) {
             firstCategory = 0L;
@@ -49,11 +50,22 @@ public class CategoryService {
     /**
      * 회원 카테고리 정보 가져오기
      */
-    public List<Category> getCategoryNames (Long userNum) {
+    public List<Category> getCategoryNames(Long userNum) {
         List<Category> categoryList = categoryRepository.getCategoryNamesByUserNum(userNum);
         if(categoryList == null) {
             throw new IllegalStateException("잘못된 호출입니다.");
         }
         return categoryList;
+    }
+
+    /**
+     * 카테고리 등록
+     */
+    public void saveCategory(String categoryName, Long userNum) {
+        Category category = new Category();
+
+        category.setCategoryName(categoryName);
+        category.setUserNum(userNum);
+        categoryRepository.save(category);
     }
 }

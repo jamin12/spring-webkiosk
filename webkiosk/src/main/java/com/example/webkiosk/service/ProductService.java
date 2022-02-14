@@ -17,9 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
-public class ProductService {
+public interface ProductService {
 
-    private final ProductRepository productRepository;
+    final ProductRepository productRepository;
 
     /**
      * 접속한 회원의 카테고리에 따른 상품 목록 가져오기

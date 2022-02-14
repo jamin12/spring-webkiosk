@@ -137,10 +137,8 @@
 
     <div class="content-form">
         <h3 class="fw-bold">카테고리 이름</h3>
-        <form method="post" action="#" th:action="@{/setting/regCategory}" th:object="${category}">
-            <input type="text" class="form-input mt-4" th:field="*{categoryName}">
-            <button class="btn btn-warning btn-lg text-white fw-bold mx-4 mb-2 px-4" type="submit">생성하기</button>
-        </form>
+        <input type="text" class="form-input mt-4">
+        <button class="btn btn-warning btn-lg text-white fw-bold mx-4 mb-2 px-4" type="button">생성하기</button>
     </div>
 
     <div class="content-list">

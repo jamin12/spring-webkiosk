@@ -58,7 +58,7 @@ public class KioskController {
             return "redirect:/login";
         }
     }
-
+    
     /*@GetMapping("/kiosk")
     public String kiosk(Model model, HttpServletRequest request,
                        @Qualifier("category") @PageableDefault(size = 5) Pageable categoryPage,
@@ -93,8 +93,7 @@ public class KioskController {
     }*/
 
     @PostMapping("/kiosk")
-    public String kioskSubmit(@ModelAttribute("category") Category category, RedirectAttributes rttr) {
-        rttr.addAttribute("categoryId",category.getCategoryId());
+    public String kioskSubmit() {
         return "redirect:/kiosk";
     }
 }
