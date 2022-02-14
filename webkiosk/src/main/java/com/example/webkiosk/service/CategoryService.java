@@ -2,6 +2,7 @@
 package com.example.webkiosk.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -22,10 +23,10 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     /**
-     * 카테고리 목록 가져오기
+     * 카테고리 목록 가져오기(페이지)
      */
     public Page<Category> getCategories (Long userNum, Pageable pageable) {
-        Page<Category> categoryList = categoryRepository.findCategoriesByUserNum(userNum, pageable);
+        Page<Category> categoryList = categoryRepository.getCategoriesByUserNum(userNum, pageable);
         if(categoryList == null) {
             throw new IllegalStateException("잘못된 호출입니다.");
         }
@@ -43,5 +44,16 @@ public class CategoryService {
             firstCategory = categoryRepository.getCategoryIdList(userNum).get(0);
         }
         return firstCategory;
+    }
+
+    /**
+     * 회원 카테고리 정보 가져오기
+     */
+    public List<Category> getCategoryNames (Long userNum) {
+        List<Category> categoryList = categoryRepository.getCategoryNamesByUserNum(userNum);
+        if(categoryList == null) {
+            throw new IllegalStateException("잘못된 호출입니다.");
+        }
+        return categoryList;
     }
 }

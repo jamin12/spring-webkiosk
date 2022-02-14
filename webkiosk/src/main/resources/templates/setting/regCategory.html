@@ -104,7 +104,7 @@
 <body>
     <!-- tab -->
     <div class="sidebar text-white bg-warning p-3">
-        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <a href="#" th:href="@{/kiosk}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <img src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="40" height="32"
                 class="d-inline-block me-2">
             <span class="fs-4 fw-bold">키오스크 설정</span>
@@ -132,7 +132,7 @@
                 </a>
             </li>
         </ul>
-        <button class="btn back-button fw-bold" type="button">Back</button>
+        <a th:href="@{/kiosk}" class="btn back-button fw-bold">Back</a>
     </div>
 
     <div class="content-form">
@@ -143,12 +143,8 @@
 
     <div class="content-list">
         <ul class="list-group list-group-flush">
-            <li class="list-group-item py-3">
-                <span class="fw-bold fs-4">짜장짜장</span>
-                <button class="btn btn-warning text-white float-end fw-bold px-4" type="button">삭제</button>
-            </li>
-            <li class="list-group-item py-3">
-                <span class="fw-bold fs-4">짜장짜장</span>
+            <li class="list-group-item py-3" th:each="clist : ${categories}">
+                <span class="fw-bold fs-4" th:text="${clist.categoryName}">err</span>
                 <button class="btn btn-warning text-white float-end fw-bold px-4" type="button">삭제</button>
             </li>
         </ul>

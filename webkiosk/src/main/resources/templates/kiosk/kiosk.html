@@ -14,10 +14,12 @@
 
 <style>
     .dropbtn {
-        background-color: #ea2129;
+        background-color: #fc9f15;
+        border-style: solid;
+        border-radius: 4px;
         color: white;
         padding: 16px;
-        font-size: 16px;
+        font-size:18px;
         border: none;
     }
 
@@ -29,8 +31,9 @@
     .dropdown-content {
         display: none;
         position: absolute;
+        right: 1px;
         background-color: #f1f1f1;
-        min-width: 160px;
+        min-width: 200px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
     }
@@ -51,7 +54,7 @@
     }
 
     .dropdown:hover .dropbtn {
-        background-color: #3e8e41;
+       background-color: #4472C4;
     }
 </style>
 
@@ -59,7 +62,7 @@
     <!--navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="#" th:href="@{/login}">
                 <h4 class="fw-bold ms-3 text-md-start">
                     <img src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24"
                         class="d-inline-block">
@@ -76,9 +79,9 @@
                 </li>
                 <p class="me-4 text-white"><b>0</b></p>
                 <div class="dropdown">
-                    <button class="dropbtn" th:text="${loginUser.userId}">err</button>
-                    <div class="dropdown-content">
-                        <a href="#">키오스크 설정</a>
+                    <button class="dropbtn fw-bold" th:text="${loginUser.userId}"><u>err</u></button>
+                    <div class="dropdown-content fw-bold">
+                        <a href="#" th:href="@{/setting/regCategory}">키오스크 설정</a>
                         <a href="#">로그아웃</a>
                     </div>
                 </div>
@@ -89,22 +92,17 @@
     <!--category-->
     <ul class="nav nav-pills nav-fill mt-3 fw-bold">
         <li class="nav-item">
-            <a type="button" th:href="@{/kiosk(categoryId=${currentCategory} ,category_page=${categories.pageable.pageNumber - 1} ,product_page=${products.pageable.pageNumber})}" class="btn btn-primary btn-lg"><</a>
+            <a type="button" th:href="@{/kiosk(categoryId=${currentCategory} ,category_page=${categories.pageable.pageNumber - 1} ,product_page=${products.pageable.pageNumber})}"
+               class="btn btn-primary btn-lg" th:classappend="${0 == categories.pageable.pageNumber} ? 'disabled'"><</a>
         </li>
         <li class="nav-item" th:each="clist : ${categories}">
             <a href="#" th:href="@{/kiosk(categoryId=${clist.categoryId} ,category_page=0 ,product_page=0)}">
                 <button type="button" class="btn fw-bold text-primary" th:classappend="${clist.categoryId == currentCategory} ? 'disabled'" th:text="${clist.categoryName}">err</button>
             </a>
-
-            <!--
-            <form method="get" action="#" th:action="@{/kiosk}" commandName="category">
-                <input type="hidden" th:value="${clist.categoryId}" name="categoryId" />
-                <button type="submit" class="btn fw-bold text-primary" th:classappend="${clist.categoryId == currentCategory} ? 'disabled'" th:text="${clist.categoryName}">err</button>
-            </form>
-            -->
         </li>
         <li class="nav-item">
-            <a type="button" th:href="@{/kiosk(categoryId=${currentCategory} ,category_page=${categories.pageable.pageNumber + 1} ,product_page=${products.pageable.pageNumber})}" class="btn btn-primary btn-lg">></a>
+            <a type="button" th:href="@{/kiosk(categoryId=${currentCategory} ,category_page=${categories.pageable.pageNumber + 1} ,product_page=${products.pageable.pageNumber})}"
+               class="btn btn-primary btn-lg" th:classappend="${categories.totalPages == categories.pageable.pageNumber + 1} ? 'disabled'">></a>
         </li>
     </ul>
 
@@ -112,7 +110,7 @@
     <div class="row h-auto w-auto my-5">
         <div class="col-1 align-self-center">
             <a href="#" th:href="@{/kiosk(categoryId=${currentCategory} ,category_page=${categories.pageable.pageNumber} ,product_page=${products.pageable.pageNumber - 1})}">
-                <img src="static/image/previous.png" class="img-fluid" alt="...">
+                <img th:if="${products.pageable.pageNumber != 0}" src="static/image/previous.png" class="img-fluid" alt="...">
             </a>
         </div>
         <div class="col-10">
@@ -120,7 +118,8 @@
                 <div class="col" th:each="plist : ${products}">
                     <div class="card shadow-sm">
                         <a href="#" data-bs-toggle="modal" data-bs-target="#option">
-                            <img class="card-img-top" th:src="${plist.productImage}" height="225" alt=" Card image cap">
+                            <img th:if="${plist.productImage == null}" class="card-img-top" src="static/image/noImage.png" height="225" alt=" Card image cap">
+                            <img th:if="${plist.productImage != null}" class="card-img-top" th:src="${plist.productImage}" height="225" alt=" Card image cap">
                         </a>
                         <div class="card-body">
                             <h5 class="text-center fw-bold" th:text="${plist.productName}">err</h5>
@@ -133,7 +132,7 @@
         </div>
         <div class="col-1 align-self-center">
             <a href="#" th:href="@{/kiosk(categoryId=${currentCategory} ,category_page=${categories.pageable.pageNumber} ,product_page=${products.pageable.pageNumber + 1})}">
-                <img src="static/image/next.png" class="img-fluid" alt="...">
+                <img th:if="${products.totalPages != products.pageable.pageNumber + 1}" src="static/image/next.png" class="img-fluid" alt="...">
             </a>
         </div>
     </div>
