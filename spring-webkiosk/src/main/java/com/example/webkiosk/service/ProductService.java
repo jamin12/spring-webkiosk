@@ -46,15 +46,8 @@ public class ProductService {
 		return list;
 	}
 
-	public void saveProduct(Long categoryId, String productName,
-			Integer productPrice,String productInfo, String productImage) {
+	public void saveProduct(Product product) {
 		// TODO Auto-generated method stub
-		Product product = new Product();
-		product.setCategoryId(categoryId);
-		product.setProductName(productName);
-		product.setProductPrice(productPrice);
-		product.setProductInfo(productInfo);
-		product.setProductImage(productImage);
 		productRepository.save(product);
 	}
 }

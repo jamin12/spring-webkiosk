@@ -9,21 +9,17 @@ import com.example.webkiosk.service.OptionService;
 import com.example.webkiosk.service.ProductService;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
@@ -62,8 +58,7 @@ public class SettingController {
 	@PostMapping("/regProduct")
 	public String regProductSubmit(@ModelAttribute("product") Product product) {
 		
-		productService.saveProduct(product.getCategoryId(),
-				product.getProductName(), product.getProductPrice(), product.getProductInfo(), product.getProductImage());
+		productService.saveProduct(product);
 		return "setting/regProduct";
 	}
 	@PostMapping("/regOption")
