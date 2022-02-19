@@ -119,7 +119,7 @@
                     <div class="card shadow-sm">
                         <a href="#" data-bs-toggle="modal" data-bs-target="#option">
                             <img th:if="${plist.productImage == null}" class="card-img-top" src="static/image/noImage.png" height="225" alt=" Card image cap">
-                            <img th:if="${plist.productImage != null}" class="card-img-top" th:src="${plist.productImage}" height="225" alt=" Card image cap">
+                            <img th:if="${plist.productImage != null}" class="card-img-top" th:src="'static/image/'+${loginUser.userNum}+'/'+${plist.productImage}" height="225" alt=" Card image cap">
                         </a>
                         <div class="card-body">
                             <h5 class="text-center fw-bold" th:text="${plist.productName}">err</h5>
@@ -194,7 +194,7 @@
                                 <div class="col" th:each="plist : ${products}">
                                     <div class="card shadow-sm">
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#option">
-                                            <img class="card-img-top" th:src="${plist.productImage}" height="200"
+                                            <img class="card-img-top" th:src="'static/image/'+${loginUser.userNum}+'/'+${plist.productImage}" height="200"
                                                 alt=" Card image cap">
                                         </a>
                                         <div class="card-body">
