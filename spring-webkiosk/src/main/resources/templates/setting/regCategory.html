@@ -146,8 +146,11 @@
     <div class="content-list">
         <ul class="list-group list-group-flush">
             <li class="list-group-item py-3" th:each="clist : ${categories}">
-                <span class="fw-bold fs-4" th:text="${clist.categoryName}">err</span>
-                <button class="btn btn-warning text-white float-end fw-bold px-4" type="button">삭제</button>
+            	<form action="deleteCategory" method="post">
+               		<span class="fw-bold fs-4" th:text="${clist.categoryName}">err</span>
+               		<input type="hidden" name="categoryId" th:value="${clist.categoryId}">
+                	<button class="btn btn-warning text-white float-end fw-bold px-4" type="submit">삭제</button>
+                </form>
             </li>
         </ul>
     </div>

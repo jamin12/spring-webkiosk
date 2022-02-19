@@ -68,4 +68,8 @@ public class CategoryService {
         category.setUserNum(userNum);
         categoryRepository.save(category);
     }
+    
+    public void deleteCategory(Long categoryId) {
+    	categoryRepository.deleteById(categoryId);
+    }
 }
