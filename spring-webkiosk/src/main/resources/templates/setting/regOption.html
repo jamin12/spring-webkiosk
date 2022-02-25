@@ -169,7 +169,7 @@
     </div>
 
     <div class="content-form">
-    <form th:action="@{/setting/regOption}" method="post">
+    <form th:action="@{/setting/regOption}" enctype="Multipart/form-data" method="post">
         <div class="mt-4">
             <span class="fs-5 fw-bold">옵션 이름</span>
             <input type="text" name="optionName" class="form-input mx-3">
@@ -182,7 +182,7 @@
             <span class="fs-5 fw-bold">이미지</span>
             <input class="upload-name" value="첨부파일" placeholder="첨부파일">
             <label for="file">파일찾기</label>
-            <input type="file" id="file">
+            <input type="file" id="file" name = "file"multiple="multiple" >
         </div>
         <button class="btn btn-warning btn-lg text-white float-end fw-bold px-4" type="submit">등록하기</button>
         </form>
