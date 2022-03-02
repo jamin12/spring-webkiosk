@@ -1,5 +1,6 @@
 package com.example.webkiosk.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.example.webkiosk.entity.PaymentDetail;
@@ -21,14 +22,22 @@ public class PaymentService {
     }
 
     // 전체 금액
-    public void getTotalPayment(Long userNum) {
+    public int getSelectPaymentDetail(Long userNum, String date, String select) {
         int total = 0;
-        List<PaymentDetail> plist = paymentRepository.findByUserNum(userNum);
-        for (PaymentDetail list : plist) {
-            System.out.println(list.getPaymentProductPrice());
-            total += list.getPaymentProductPrice();
-            System.out.println(total);
+        List<PaymentDetail> plist = null;
+        switch (select) {
+            case "date":
+                plist = paymentRepository.findByDate(userNum, date);
+                break;
+            case "month":
+                plist = paymentRepository.findByMonth(userNum, date);
+                break;
         }
-        System.out.println(total);
+        for (PaymentDetail list : plist) {
+            total += list.getPaymentProductPrice();
+            System.out.println(list.getPaymentDatetime());
+        }
+
+        return total;
     }
 }

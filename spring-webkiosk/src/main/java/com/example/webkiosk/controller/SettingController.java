@@ -12,6 +12,7 @@ import com.example.webkiosk.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -106,9 +109,16 @@ public class SettingController {
 	public String payment(HttpServletRequest request, Model model) {
 		User usernum = (User) request.getSession().getAttribute("loginUser");
 		List<PaymentDetail> plist = paymentService.getPaymentDetails(usernum.getUserNum());
-		paymentService.getTotalPayment(usernum.getUserNum());
 		model.addAttribute("plist", plist);
 		return "setting/paymentDetail";
+	}
+
+	@PostMapping("/paymentDetail")
+	public String paymentDate(HttpServletRequest request, String date, String select) {
+		User usernum = (User) request.getSession().getAttribute("loginUser");
+		paymentService.getSelectPaymentDetail(usernum.getUserNum(), date, select);
+		System.out.println(select);
+		return "redirect:/setting/paymentDetail";
 	}
 
 	@GetMapping("/modProduct")
