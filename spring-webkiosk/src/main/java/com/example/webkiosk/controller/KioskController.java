@@ -64,16 +64,15 @@ public class KioskController {
         return "redirect:/kiosk";
     }
 
-    @PostMapping(value = "/callOption")
-    public String callOption(@RequestBody Map<String, Object> map, HttpServletRequest request, Model model){
+    @RequestMapping(value = "/callOption", method = {RequestMethod.POST})
+    @ResponseBody
+    public List<Option> callOption(@RequestParam("pid") Long productId, HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
         User loginUser = (User) session.getAttribute("loginUser");
-
-        List<Option> options = optionService.getOptionByProductIdAndUserNum(Long.valueOf(map.get("productId").toString()), loginUser.getUserNum());
-        model.addAttribute("options", options);
+        System.out.println(productId + loginUser.getUserNum());
+        List<Option> options = optionService.getOptionByProductIdAndUserNum(productId, loginUser.getUserNum());
         System.out.println(options.toString());
-
-        return "kiosk/kiosk :: #optionAjax";
+        return options;
     }
 
     /*

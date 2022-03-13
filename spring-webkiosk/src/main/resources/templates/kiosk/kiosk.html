@@ -58,19 +58,6 @@
     }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    function callOption(pid) {
-        $.ajax({
-            url : "callOption",
-            dataType : "json",
-            contentType : "application/json; charset=UTF-8",
-            type : "post",
-            data : JSON.stringify({productId:pid}),
-        }).done(function (fragment) {
-            $("#optionAjax").replaceWith(fragment);
-        });
-    }
-</script>
 
 <body style="overflow:hidden;">
 <!--navbar-->
@@ -131,7 +118,7 @@
         <div class="row row-cols-4 g-8 gy-5">
             <div class="col" th:each="plist: ${products}">
                 <div class="card shadow-sm">
-                    <a href="#" th:onclick="|javascript:callOption('${plist.productId}')|" data-th-value="${plist.productId}" data-bs-toggle="modal" data-bs-target="#option">
+                    <a href="#" th:onclick="'javascript:callOption('+ ${plist.productId} +');'" data-th-value="${plist.productId}" data-bs-toggle="modal" data-bs-target="#option">
                         <img th:if="${plist.productImage == null}" class="card-img-top" src="static/image/noImage.png" height="225" alt=" Card image cap">
                         <img th:if="${plist.productImage != null}" class="card-img-top" th:src="'static/image/'+${loginUser.userNum}+'/'+${plist.productImage}" height="225" alt=" Card image cap">
                     </a>
@@ -204,21 +191,8 @@
                         </a>
                     </div>
                     <div class="col-10">
-                        <div class="row row-cols-3 g-8 gy-5">
-
-                            <div id="optionAjax">
-                                <div class="col" th:if="${options} != null" th:each="olist : ${options}">
-                                    <div class="card shadow-sm">
-                                        <img th:if="${olist.optionImage == null}" class="card-img-top" src="static/image/noImage.png" height="225" alt=" Card image cap">
-                                        <img th:if="${olist.optionImage != null}" class="card-img-top" th:src="'static/image/'+${loginUser.userNum}+'/'+${olist.optionImage}" height="225" alt=" Card image cap">
-                                        <div class="card-body">
-                                            <h5 class="text-center fw-bold" th:text="${olist.optionName}">err</h5>
-                                            <h5 class="text-center fw-bold text-primary" th:text="${olist.optionPrice} + ' 원'">err</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                        <div class="row row-cols-3 g-8 gy-5" id="optionAjax">
+                            
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
@@ -248,7 +222,42 @@
         </div>
     </div>
 </div>
+<script th:inline="javascript">
+    function callOption(pid) {
+    	var productId = pid;
+        $.ajax({
+            url : "/callOption",
+            type : "POST",
+            data : {
+            	pid : productId
+            },
+            success : function(object) {
+            	var str = '<div>';
+            	$.each(object, function(i){
+            		str += '<div class="col">';
+            		str += '<div class="card shadow-sm">';
+            		if(object[i].optionImage == null){
+            			str += '<img class="card-img-top" src="static/image/noImage.png" height="225" alt=" Card image cap">';
+            		} else {
+            			str += '<img class="card-img-top" src="static/image/'+object[i].userNum+'"/"'+ object[i].optionImage +'" height="225" alt=" Card image cap">';
+            		}
+            		str += '<div class="card-body">';
+            		str += '<h5 class="text-center fw-bold">'+object[i].optionName+'</h5>';
+            		str += '<h5 class="text-center fw-bold">'+object[i].optionPrice+'원</h5>';
+            		str += '</div>';
+            		str += '</div>';
+            		str += '</div>';
+            		str += '</div>';
+            	});
+            	$("#optionAjax").append(str);
+            },
+            error : function() {
 
+			}
+            })
+    }
+
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>

@@ -159,33 +159,32 @@
     </div>
 
     <div class="content-form">
+    <form method="post"  enctype="Multipart/form-data" th:action="@{/setting/regProduct}" th:object="${product}">
         <div class="mt-4">
             <span class="fs-5 fw-bold">상품 이름</span>
-            <input type="text" class="form-input mx-3">
+            <input type="text" name="productName" class="form-input mx-3">
         </div>
         <div class="mt-4">
             <span class="fs-5 fw-bold">상품 가격</span>
-            <input type="number" class="form-input mx-3">
+            <input type="number" name="productPrice" class="form-input mx-3">
         </div>
         <div class="mt-4">
             <span class="fs-5 fw-bold">카테고리</span>
-            <select class="form-select dropdown-list mx-3">
-                <option th:each="clist:${categories}" th:text="${clist.categoryName}" th:value="${clist.categoryName}"></option>
+            <select class="form-select dropdown-list mx-3" name="categoryId">
+                <option th:each="clist:${categories}" th:text="${clist.categoryName}" th:value="${clist.categoryId}"></option>
             </select>
         </div>
         <div class="mt-4">
             <span class="fs-5 fw-bold me-2">옵션</span>
             <select class="form-select dropdown-list mx-5">
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option th:each="olist:${option}" th:text="${olist.optionName}" th:value="${olist.optionId}"></option>
             </select>
         </div>
         <div class="filebox mt-5">
             <span class="fs-5 fw-bold">이미지</span>
-            <input class="upload-name" value="첨부파일" placeholder="첨부파일">
+            <input class="upload-name" value="첨부파일">
             <label for="file">파일찾기</label>
-            <input type="file" id="file">
+            <input type="file" id="file" name = "file" multiple="multiple">
         </div>
         <div class="mt-5">
             <h5 class="fw-bold">상품 정보</h5>
@@ -196,8 +195,9 @@
         </div>
         <div class="mt-5">
             <button class="btn btn-warning btn-lg text-white float-end fw-bold px-4 mx-3" type="button">초기화</button>
-            <button class="btn btn-warning btn-lg text-white float-end fw-bold px-4" type="button">등록하기</button>
+            <button class="btn btn-warning btn-lg text-white float-end fw-bold px-4" type="submit">등록하기</button>
         </div>
+        </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
