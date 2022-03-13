@@ -69,9 +69,7 @@ public class KioskController {
     public List<Option> callOption(@RequestParam("pid") Long productId, HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
         User loginUser = (User) session.getAttribute("loginUser");
-        System.out.println(productId + loginUser.getUserNum());
         List<Option> options = optionService.getOptionByProductIdAndUserNum(productId, loginUser.getUserNum());
-        System.out.println(options.toString());
         return options;
     }
 
