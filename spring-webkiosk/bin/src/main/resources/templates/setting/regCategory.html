@@ -104,14 +104,14 @@
 <body>
     <!-- tab -->
     <div class="sidebar text-white bg-warning p-3">
-        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <a href="#" th:href="@{/kiosk}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <img src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="40" height="32"
                 class="d-inline-block me-2">
             <span class="fs-4 fw-bold">키오스크 설정</span>
         </a>
         <hr size="5px;">
         <ul class="nav nav-pills flex-column mb-auto fw-bold sidebar">
-            <li class="nav-item my-2">
+            <li class="nav-item selected my-2">
                 <a href="#" class="nav-link fs-5 text-white" th:href="@{regCategory}">
                     카테고리 등록
                 </a>
@@ -126,26 +126,31 @@
                     옵션 등록
                 </a>
             </li>
-            <li class="nav-item selected my-2">
+            <li class="nav-item my-2">
                 <a href="#" class="nav-link fs-5 text-white" th:href="@{modProduct}">
                     상품 관리
                 </a>
             </li>
         </ul>
-        <button class="btn back-button fw-bold" type="button">Back</button>
+        <a th:href="@{/kiosk}" class="btn back-button fw-bold">Back</a>
     </div>
 
     <div class="content-form">
         <h3 class="fw-bold">카테고리 이름</h3>
-        <input type="text" class="form-input mt-4">
-        <button class="btn btn-warning btn-lg text-white fw-bold mx-4 mb-2 px-4" type="button">생성하기</button>
+        <form method="post" action="#" th:action="@{/setting/regCategory}" th:object="${category}">
+            <input type="text" class="form-input mt-4" th:field="*{categoryName}">
+            <button class="btn btn-warning btn-lg text-white fw-bold mx-4 mb-2 px-4" type="submit">생성하기</button>
+        </form>
     </div>
 
     <div class="content-list">
         <ul class="list-group list-group-flush">
-            <li class="list-group-item py-3">
-                <span class="fw-bold fs-4">짜장짜장</span>
-                <button class="btn btn-warning text-white float-end fw-bold px-4" type="button">삭제</button>
+            <li class="list-group-item py-3" th:each="clist : ${categories}">
+            	<form action="deleteCategory" method="post">
+               		<span class="fw-bold fs-4" th:text="${clist.categoryName}">err</span>
+               		<input type="hidden" name="categoryId" th:value="${clist.categoryId}">
+                	<button class="btn btn-warning text-white float-end fw-bold px-4" type="submit">삭제</button>
+                </form>
             </li>
         </ul>
     </div>

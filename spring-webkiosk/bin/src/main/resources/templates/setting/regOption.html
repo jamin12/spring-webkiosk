@@ -31,7 +31,7 @@
 
     .content-form {
         width: 1490px;
-        height: 200px;
+        height: 320px;
         position: fixed;
         top: 20px;
         bottom: 0;
@@ -46,9 +46,9 @@
     .content-list {
         overflow-y: scroll;
         width: 1490px;
-        height: 710px;
+        height: 590px;
         position: fixed;
-        top: 240px;
+        top: 360px;
         bottom: 0;
         left: 420px;
         z-index: 100;
@@ -81,6 +81,39 @@
         border-color: #fff;
         outline: 0;
         box-shadow: none;
+    }
+
+    .filebox input[type="file"] {
+        position: absolute;
+        width: 0;
+        height: 0;
+        padding: 0;
+        overflow: hidden;
+        border: 0;
+    }
+
+    .filebox .upload-name {
+        display: inline-block;
+        height: 40px;
+        padding: 0 10px;
+        vertical-align: middle;
+        border: 1px solid #dddddd;
+        margin-left: 40px;
+        width: 40%;
+        color: #999999;
+    }
+
+    .filebox label {
+        display: inline-block;
+        padding: 10px 20px;
+        color: #fff;
+        vertical-align: middle;
+        background-color: #F6C344;
+        cursor: pointer;
+        height: 40px;
+        margin-left: 10px;
+        font-weight: bold;
+        border-radius: 3px;
     }
 
     .selected {
@@ -121,12 +154,12 @@
                     상품 등록
                 </a>
             </li>
-            <li class="nav-item my-2">
+            <li class="nav-item selected my-2">
                 <a href="#" class="nav-link fs-5 text-white" th:href="@{regOption}">
                     옵션 등록
                 </a>
             </li>
-            <li class="nav-item selected my-2">
+            <li class="nav-item my-2">
                 <a href="#" class="nav-link fs-5 text-white" th:href="@{modProduct}">
                     상품 관리
                 </a>
@@ -136,17 +169,27 @@
     </div>
 
     <div class="content-form">
-        <h3 class="fw-bold">카테고리 이름</h3>
-        <input type="text" class="form-input mt-4">
-        <button class="btn btn-warning btn-lg text-white fw-bold mx-4 mb-2 px-4" type="button">생성하기</button>
+    <form th:action="@{/setting/regOption}" enctype="Multipart/form-data" method="post">
+        <div class="mt-4">
+            <span class="fs-5 fw-bold">옵션 이름</span>
+            <input type="text" name="optionName" class="form-input mx-3">
+        </div>
+        <div class="mt-4">
+            <span class="fs-5 fw-bold">옵션 가격</span>
+            <input type="number" name="optionPrice" class="form-input mx-3">
+        </div>
+        <div class="filebox mt-5">
+            <span class="fs-5 fw-bold">이미지</span>
+            <input class="upload-name" value="첨부파일" placeholder="첨부파일">
+            <label for="file">파일찾기</label>
+            <input type="file" id="file" name = "file"multiple="multiple" >
+        </div>
+        <button class="btn btn-warning btn-lg text-white float-end fw-bold px-4" type="submit">등록하기</button>
+        </form>
     </div>
 
     <div class="content-list">
         <ul class="list-group list-group-flush">
-            <li class="list-group-item py-3">
-                <span class="fw-bold fs-4">짜장짜장</span>
-                <button class="btn btn-warning text-white float-end fw-bold px-4" type="button">삭제</button>
-            </li>
         </ul>
     </div>
 

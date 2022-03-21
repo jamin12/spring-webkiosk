@@ -111,23 +111,23 @@
         </a>
         <hr size="5px;">
         <ul class="nav nav-pills flex-column mb-auto fw-bold sidebar">
-            <li class="nav-item my-2">
-                <a href="#" class="nav-link fs-5 text-white" th:href="@{regCategory}">
+            <li class="nav-item selected my-2">
+                <a href="#" class="nav-link fs-5 text-white">
                     카테고리 등록
                 </a>
             </li>
             <li class="nav-item my-2">
-                <a href="#" class="nav-link fs-5 text-white" th:href="@{regProduct}">
+                <a href="#" class="nav-link fs-5 text-white">
                     상품 등록
                 </a>
             </li>
             <li class="nav-item my-2">
-                <a href="#" class="nav-link fs-5 text-white" th:href="@{regOption}">
+                <a href="#" class="nav-link fs-5 text-white">
                     옵션 등록
                 </a>
             </li>
-            <li class="nav-item selected my-2">
-                <a href="#" class="nav-link fs-5 text-white" th:href="@{modProduct}">
+            <li class="nav-item my-2">
+                <a href="#" class="nav-link fs-5 text-white">
                     상품 관리
                 </a>
             </li>
@@ -143,6 +143,10 @@
 
     <div class="content-list">
         <ul class="list-group list-group-flush">
+            <li class="list-group-item py-3">
+                <span class="fw-bold fs-4">짜장짜장</span>
+                <button class="btn btn-warning text-white float-end fw-bold px-4" type="button">삭제</button>
+            </li>
             <li class="list-group-item py-3">
                 <span class="fw-bold fs-4">짜장짜장</span>
                 <button class="btn btn-warning text-white float-end fw-bold px-4" type="button">삭제</button>
