@@ -18,8 +18,6 @@ public class UserValidator implements Validator {
         User user = (User) obj;
         if (StringUtils.isEmpty(user.getUserId())) {
             errors.rejectValue("user_id", "id.empty", "아이디를 입력하세요");
-
-            System.out.println("앙 수정띠");
         }
     }
 }
