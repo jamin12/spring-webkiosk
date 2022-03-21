@@ -4,6 +4,8 @@ import com.example.webkiosk.entity.User;
 import com.example.webkiosk.repository.UserRepository;
 import com.example.webkiosk.service.CategoryService;
 import com.example.webkiosk.service.UserService;
+import com.example.webkiosk.util.CustomException;
+import com.example.webkiosk.util.ErrorCode;
 import com.example.webkiosk.util.UserValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -38,7 +40,7 @@ public class UserController {
 
             return "redirect:/kiosk";
         } else {
-            return "redirect:/fail";
+            throw new CustomException(ErrorCode.MEMBER_NOT_FOUND);
         }
     }
 
@@ -57,4 +59,5 @@ public class UserController {
             return "redirect:/signup";
         }
     }
+
 }

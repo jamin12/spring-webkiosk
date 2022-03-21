@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class FileUpload {
     public String fileUpload(MultipartHttpServletRequest request, User user, String fileName)
             throws IllegalStateException, IOException {
-        String path = "C:\\Spring\\webkiosk-temp\\src\\main\\resources\\static\\image\\"
+        String path = "C:/Users/jamin/Desktop/jamin/project/spring-webkiosk/spring-webkiosk/src/main/resources/static/image/"
                 + user.getUserNum();
         File file = new File(path);
         if (file.exists() == false) {
@@ -34,7 +34,7 @@ public class FileUpload {
 
                 newFileName = fileName + ".jpg";
 
-                file = new File(path + "\\" + newFileName);
+                file = new File(path + "/" + newFileName);
                 multipartFile.transferTo(file);
             }
 

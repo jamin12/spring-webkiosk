@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,22 +31,22 @@ public class KioskController {
 
     @GetMapping("/kiosk")
     public String kiosk(Model model, HttpServletRequest request,
-                        @RequestParam(required = false) Long categoryId,
-                        @Qualifier("category") @PageableDefault(size = 5) Pageable categoryPage,
-                        @Qualifier("product") @PageableDefault(size = 8) Pageable productPage) {
+                        @Qualifier("category") @PageableDefault(size = 5) Pageable categoryPage) {
         HttpSession session = request.getSession();
         User loginUser = (User) session.getAttribute("loginUser");
 
+        Map<String, ?> rttrMap = RequestContextUtils.getInputFlashMap(request);
+
         if(loginUser != null) {
             Page<Category> categories = categoryService.getCategories(loginUser.getUserNum(), categoryPage);
-            Page<Product> products;
+            List<Product> products;
 
-            if(categoryId != null) {
-                products = productService.getProductsByCategoryId(categoryId, productPage);
-                model.addAttribute("currentCategory", categoryId);
+            if(rttrMap != null) {
+                products = productService.getProductsByCategoryId((Long) rttrMap.get("categoryId"));
+                model.addAttribute("currentCategory", rttrMap.get("categoryId"));
             }else {
                 Long firstCategory = categoryService.getFirstCategoryId(loginUser.getUserNum());
-                products = productService.getProductsByCategoryId(firstCategory, productPage);
+                products = productService.getProductsByCategoryId(firstCategory);
                 model.addAttribute("currentCategory", firstCategory);
             }
 
@@ -60,32 +62,29 @@ public class KioskController {
     }
 
     @PostMapping("/kiosk")
-    public String kioskSubmit() {
+    public String kioskSubmit(@RequestParam("cid") Long categoryId,
+                              @RequestParam("page") Pageable categoryPage,
+                              RedirectAttributes rttr) {
+        rttr.addFlashAttribute("categoryId",categoryId);
+        rttr.addFlashAttribute("categoryPage",categoryPage);
         return "redirect:/kiosk";
     }
 
-    @RequestMapping(value = "/callOption", method = {RequestMethod.POST})
+    /*
+    @PostMapping(value = "/callMenu")
     @ResponseBody
-    public List<Option> callOption(@RequestParam("pid") Long productId, HttpServletRequest request, Model model){
+    public List<Product> callMenu(@RequestParam("cid") Long categoryId){
+        List<Product> products = productService.getProductsByCategoryId(categoryId);
+        return products;
+    }
+    */
+
+    @PostMapping(value = "/callOption")
+    @ResponseBody
+    public List<Option> callOption(@RequestParam("pid") Long productId, HttpServletRequest request){
         HttpSession session = request.getSession();
         User loginUser = (User) session.getAttribute("loginUser");
         List<Option> options = optionService.getOptionByProductIdAndUserNum(productId, loginUser.getUserNum());
         return options;
     }
-
-    /*
-    @ResponseBody
-    @PostMapping(value = "/callOption", produces = "application/json")
-    public List<Option> callOption(@RequestBody Map<String, Object> map, HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
-        User loginUser = (User) session.getAttribute("loginUser");
-
-        List<Option> options = optionService.getOptionByProductIdAndUserNum(Long.valueOf(String.valueOf(map.get("productId"))), loginUser.getUserNum());
-        System.out.println(options.toString());
-
-        model.addAttribute("options", options);
-
-        return options;
-    }
-    */
 }

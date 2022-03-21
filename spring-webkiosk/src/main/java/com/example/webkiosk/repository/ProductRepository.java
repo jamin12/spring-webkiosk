@@ -8,10 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value = "SELECT * FROM product WHERE category_id = :categoryId", nativeQuery = true)
-    Page<Product> getProductsByCategoryId(@Param("categoryId") Long categoryId, Pageable pageable);
+    List<Product> getProductsByCategoryId(@Param("categoryId") Long categoryId);
 
 }

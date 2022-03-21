@@ -30,8 +30,8 @@ public class ProductService {
     /**
      * 접속한 회원의 카테고리에 따른 상품 목록 가져오기
      */
-    public Page<Product> getProductsByCategoryId (Long categoryId, Pageable pageable) {
-        Page<Product> categoryProduct = productRepository.getProductsByCategoryId(categoryId, pageable);
+    public List<Product> getProductsByCategoryId (Long categoryId) {
+        List<Product> categoryProduct = productRepository.getProductsByCategoryId(categoryId);
         return categoryProduct;
     }
 

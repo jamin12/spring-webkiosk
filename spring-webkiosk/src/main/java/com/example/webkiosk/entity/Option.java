@@ -20,6 +20,8 @@ public class Option {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long optionId;
 
+//    @ManyToOne
+//    @JoinColumn(name = "user_userNum")
     private Long userNum;
 
     @Column(length = 20)

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>웹 키오스크</title>
+</head>
+
+<body>
+    <h1>
+        <span th:text="${errorMessage.getHttpStatus().value()}"></span>
+        <span th:text="${errorMessage.getDetail()}"></span>
+    </h1>
+    <a href="../login"> 돌아가기 </a>
+    
+</body>
+</html>
